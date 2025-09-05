@@ -1,7 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useCurrentContact } from "@/hooks/use-current";
+import { Separator } from "@radix-ui/react-separator";
 import { Settings2 } from "lucide-react";
+import Image from "next/image";
 
 const TopChat = () => {
 
@@ -17,7 +20,7 @@ const TopChat = () => {
         <div className="ml-2">
           <h2 className="font-medium text-sm">{currentContact?.email}</h2>
           {/* isTyping */}
-          {/* <div className="text-xs flex items-center gap-1 text-muted-foreground">
+          <div className="text-xs flex items-center gap-1 text-muted-foreground">
             <p className="text-secondary-foreground animate-pulse line-clamp-1">Hello world</p>
             <div className="self-end mb-1">
               <div className="flex items-center justify-center gap-1">
@@ -26,7 +29,7 @@ const TopChat = () => {
                 <div className="w-1 h-1 bg-secondary-foreground rounded-full animate-bounce [animation-delay:-0.15s]"></div>
               </div>
             </div>
-          </div> */}
+          </div>
           <p className="text-xs">
             {/* online */}
             {/* <span className="text-green-500">• </span> Online */}
@@ -36,9 +39,63 @@ const TopChat = () => {
         </div>
       </div>
 
-        <Button size={'icon'} variant='secondary'>
-          <Settings2 />
-        </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size={'icon'} variant='secondary'>
+            <Settings2 />
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle />
+          </SheetHeader>
+          <div className="mx-auto w-1/2 h-36 relative">
+            <Avatar className="w-full h-36">
+              <AvatarImage src={currentContact?.avatar} alt={currentContact?.email} className='object-cover' />
+              <AvatarFallback className='text-6xl uppercase font-spaceGrotesk'>{currentContact?.email[0]}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+
+          <Separator className="my-2" />
+
+          <h1 className="text-center capitalize font-spaceGrotesk text-xl">{currentContact?.email}</h1>
+
+          <div className="flex flex-col space-y-1 px-3">
+            {currentContact?.firstName && (
+              <div className="flex items-center gap-1 mt-4">
+                <p className="text-spaceGrotesk">First Name: </p>
+                <p className="font-spaceGrotesk text-muted-foreground">{currentContact?.firstName}</p>
+              </div>
+            )}
+            {currentContact?.lastName && (
+              <div className="flex items-center gap-1 mt-4">
+                <p className="text-spaceGrotesk">Last Name: </p>
+                <p className="font-spaceGrotesk text-muted-foreground">{currentContact?.lastName}</p>
+              </div>
+            )}
+            {currentContact?.lastName && (
+              <div className="flex items-center gap-1 mt-4">
+                <p className="text-spaceGrotesk">Last Name: <span className="font-spaceGrotesk text-muted-foreground">{currentContact?.bio}</span></p>
+              </div>
+            )}
+          </div>
+
+          <Separator className="my-2" />
+
+          <h2 className="text-xl px-3">Image</h2>
+          <div className="flex flex-col space-y-2 px-3">
+            <div className="w-full h-36 relative">
+              <Image
+                src={'https://github.com/shadcn.png'}
+                alt={'https://github.com/shadcn.png'}
+                fill
+                className="object-cover rounded-md"
+              />
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
 
     </div>
   )
