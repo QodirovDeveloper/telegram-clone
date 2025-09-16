@@ -1,5 +1,5 @@
 'use client'
-import { Loader2 } from "lucide-react" 
+import { Loader2 } from "lucide-react"
 import ContactList from "./_components/contact-list"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
