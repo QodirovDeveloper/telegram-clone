@@ -44,7 +44,7 @@ const HomePage = () => {
   return (
     <>
       {/* sidebar */}
-      <div className="w-80 h-screen border-r fixed inset-0 z-50 ">
+      <div className="w-80 max-md:w-14 h-screen border-r fixed inset-0 z-50 ">
         {/* loading... */}
         {/* <div className="w-full h-[95vh] flex justify-center items-center">
           <Loader2 size={50} className="animate-spin" />
@@ -53,7 +53,7 @@ const HomePage = () => {
         <ContactList contacts={contacts} />
       </div>
       {/* chat area */}
-      <div className="pl-80 w-full ">
+      <div className="max-md:pl-16 pl-80 w-full ">
         {/* add contact */}
         {!currentContact?._id && <AddContact contactForm={contactForm} onCreateContact={onCreateContact} />}
         {/* chat  */}

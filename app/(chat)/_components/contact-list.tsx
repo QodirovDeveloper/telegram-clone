@@ -23,7 +23,7 @@ const ContactList: FC<Props> = ({ contacts }) => {
       router.push(`/?chat=${contact._id}`)
     }
     return (
-      <div className={cn('flex justify-between items-center cursor-pointer hover:bg-secondary/50 p-2',
+      <div className={cn('flex justify-between items-center cursor-pointer hover:bg-secondary/50 md:p-2',
         currentContact?._id === contact._id && 'bg-secondary/50'
       )}
         onClick={onChat}>
@@ -35,12 +35,12 @@ const ContactList: FC<Props> = ({ contacts }) => {
             </Avatar>
             <div className="size-3 bg-green-500 absolute rounded-full bottom-0 right-0 !z-50" />
           </div>
-          <div>
+          <div className='max-md:hidden'>
             <h2 className='capitalize line-clamp-1 text-sm'>{contact.email.split('@')[0]}</h2>
             <p className='text-xs text-muted-foreground line-clamp-1'>No message yet</p>
           </div>
         </div>
-        <div className="self-end">
+        <div className="self-end max-md:hidden">
           <p className='text-xs text-muted-foreground'>2:30 PM</p>
         </div>
       </div>
@@ -50,20 +50,23 @@ const ContactList: FC<Props> = ({ contacts }) => {
   return (
     <>
       {/* top bar */}
-      <div className="flex items-center bg-background pl-2 sticky top-0">
+      <div className="flex items-center bg-background md:pl-2 sticky top-0">
         <Settings />
-        <div className="m-2 w-full">
+        <div className="md:m-2 w-full max-md:hidden">
           <Input placeholder='Search...' className='bg-secondary' type='text' />
         </div>
       </div>
       {/* contacts */}
-      {contacts.length === 0 && (
-        <div className="w-full h-[95vh] flex justify-center items-center text-center text-muted-foreground">
-          <p>Contact list is empty</p>
-        </div>
-      )}
+      <div className="max-md:mt-2">
 
-      {contacts.map(contact => <div key={contact._id}>{renderContacts(contact)}</div>)}
+        {contacts.length === 0 && (
+          <div className="w-full h-[95vh] flex justify-center items-center text-center text-muted-foreground">
+            <p>Contact list is empty</p>
+          </div>
+        )}
+
+        {contacts.map(contact => <div key={contact._id}>{renderContacts(contact)}</div>)}
+      </div>
     </>
   )
 }
